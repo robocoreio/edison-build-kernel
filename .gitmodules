@@ -1,0 +1,6 @@
+[submodule "edison-broadcom-cws"]
+	path = edison-broadcom-cws
+	url = https://github.com/robocoreio/edison-broadcom-cws
+[submodule "edison-kernel"]
+	path = edison-kernel
+	url = https://github.com/robocoreio/edison-kernel
