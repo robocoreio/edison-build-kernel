@@ -22,5 +22,5 @@ if [ "$NOKERNEL" = "" ]; then
 fi
 
 echo 'building wifi module...'
-make INSTALL_MOD_PATH=../build/ M=$PWD/edison-broadcom-cws/wlan/driver_bcm43x -C edison-kernel all modules_install
-cp edison-broadcom-cws/wlan/driver_bcm43x/bcm4334x.ko $TARGET_MOD/
+make INSTALL_MOD_PATH=../build/ M=$PWD/edison-broadcom-cws/wlan/driver_bcm43x -C edison-kernel
+make INSTALL_MOD_PATH=../build/ M=$PWD/edison-broadcom-cws/wlan/driver_bcm43x -C edison-kernel modules_install
