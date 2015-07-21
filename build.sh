@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/bash -e
 KERNEL_VERSION=3.10.17-robocore-edison
 
 TARGET_FW=build/lib/firmware
@@ -15,12 +14,12 @@ cp $WIFIFW/bcmdhd.cal_4334x_b0 $TARGET_FW/bcmdhd.cal
 
 if [ "$NOKERNEL" = "" ]; then
     echo 'building kernel...'
-    ln -s arch/x86/configs/i386_robocore_edison_defconfig ./edison-kernel/.config || true
-    make -j$((nproc+2)) -C edison-kernel
+    ln -fs arch/x86/configs/i386_robocore_edison_defconfig ./edison-kernel/.config
+    make CC=/usr/bin/gcc-4.8 -C edison-kernel
     cp edison-kernel/arch/x86/boot/bzImage build/vmlinuz
-    make INSTALL_MOD_PATH=../build/ -C edison-kernel modules_install
+    make CC=/usr/bin/gcc-4.8 INSTALL_MOD_PATH=../build/ -C edison-kernel modules_install
 fi
 
 echo 'building wifi module...'
-make INSTALL_MOD_PATH=../build/ M=$PWD/edison-broadcom-cws/wlan/driver_bcm43x -C edison-kernel
-make INSTALL_MOD_PATH=../build/ M=$PWD/edison-broadcom-cws/wlan/driver_bcm43x -C edison-kernel modules_install
+make CC=/usr/bin/gcc-4.8 INSTALL_MOD_PATH=../build/ M=$PWD/edison-broadcom-cws/wlan/driver_bcm43x -C edison-kernel
+make CC=/usr/bin/gcc-4.8 INSTALL_MOD_PATH=../build/ M=$PWD/edison-broadcom-cws/wlan/driver_bcm43x -C edison-kernel modules_install
